@@ -6,8 +6,8 @@ import pt.uma.arq.game.Animator;
 public class Laser {
 
     protected Animator animator;
-    protected int x;
-    protected int y;
+    public int x;
+    public int y;
 
     public Laser(int x, int y, SpriteBatch batch){
         this.x = x;

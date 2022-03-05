@@ -1,5 +1,6 @@
 package pt.uma.arq.entities;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pt.uma.arq.game.Animator;
 
 import java.awt.*;
@@ -10,8 +11,8 @@ public abstract class Ship {
     protected int x;
     protected int y;
     protected int attackValue;
-    protected boolean collided;
-    protected Rectangle boundingBox;
+    public boolean collided;
+    public Rectangle boundingBox;
 
     public Ship(){
         x = 0;
@@ -21,12 +22,11 @@ public abstract class Ship {
         boundingBox = new Rectangle();
     }
 
-    public Ship(int x, int y, int attackValue){
+    public Ship(int x, int y){
         this.x = x;
         this.y = y;
-        this.attackValue = attackValue;
         this.collided = false;
-        this.boundingBox = new Rectangle(x, y);
+        this.boundingBox = new Rectangle(x, y, 20, 20); //TODO set for each ship
     }
 
     public void create(){

@@ -57,8 +57,8 @@ public class PlayerShip extends Ship{
         }
     }
 
-    private void fireLaser(){
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+    private void fireLaser() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             Laser laser = new Laser(x, y, batch);
             laser.create();
             lasers.add(laser);

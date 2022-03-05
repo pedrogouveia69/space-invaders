@@ -8,8 +8,8 @@ import java.awt.*;
 public class SmallShip extends Ship{
 
 
-    public SmallShip(int x, int y, int attackValue, SpriteBatch batch){
-        super(x,y,attackValue);
+    public SmallShip(int x, int y, SpriteBatch batch){
+        super(x, y);
         animator = new Animator(batch, "enemy-small.png", 2, 1);
     }
 }
