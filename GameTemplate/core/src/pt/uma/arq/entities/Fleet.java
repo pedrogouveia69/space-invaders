@@ -15,27 +15,28 @@ public class Fleet {
 
     private SpriteBatch batch;
     public ArrayList<Ship> ships;
-    public ArrayList<Laser> lasers;
+    public ArrayList<EnemyLaser> lasers;
 
     public Fleet(SpriteBatch batch){
-
         this.batch = batch;
         this.ships = new ArrayList<Ship>();
-        this.lasers = new ArrayList<Laser>();
+        this.lasers = new ArrayList<EnemyLaser>();
     }
 
     public void create(){
         for (int i = 0; i < 9; i++) {
             // i*n is for spacing the ships
             Ship small = new SmallShip(90 + (i * 50), 550, batch);
-            small.create();
-            ships.add(small);
             Ship medium = new MediumShip(40 + (i * 60), 600, batch);
-            medium.create();
-            ships.add(medium);
             Ship large = new LargeShip(40 + (i * 60), 650, batch);
-            large.create();
+
+            ships.add(small);
+            ships.add(medium);
             ships.add(large);
+
+            small.create();
+            medium.create();
+            large.create();
         }
     }
 
@@ -44,33 +45,19 @@ public class Fleet {
         for (Ship ship: ships) {
             ship.render();
         }
-        for (Laser laser: lasers) {
-            laser.renderEnemy();
+        for (EnemyLaser laser: lasers) {
+            laser.render();
         }
     }
 
     public void fireLaser(){
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+        if(ships.size() > 0){
             int rand = (int) (Math.random() * ships.size());
             Ship randShip = ships.get(rand);
-            Laser laser = new Laser(randShip.x, randShip.y, batch);
-            laser.create();
+            EnemyLaser laser = new EnemyLaser(batch, randShip.x, randShip.y, randShip.attackValue);
             lasers.add(laser);
+            laser.create();
         }
-
-        //TODO
-        /*
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                Laser laser = new Laser(300, 400, batch);
-                laser.create();
-                fleet.lasers.add(laser);
-            }
-        };
-
-        new Timer().schedule(timerTask, 1000);
-        */
     }
 
 }

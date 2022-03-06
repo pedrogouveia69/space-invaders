@@ -3,21 +3,21 @@ package pt.uma.arq.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import pt.uma.arq.game.Animator;
-
+import pt.uma.arq.game.ShipSprite;
 import java.util.ArrayList;
 
 public class PlayerShip extends Ship{
 
-    public SpriteBatch batch;
     public ArrayList<Laser> lasers;
 
     public PlayerShip(SpriteBatch batch){
-        this.batch = batch;
-        animator = new Animator(batch, "ship.png", 5, 2);
+        super(batch);
+        sprite = new ShipSprite("core/assets/ship.png", 5, 2);
         x = 300;
-        y = 50;
-        this.lasers = new ArrayList<Laser>();
+        y = 20;
+        setBoundingBox();
+        setAnimator();
+        lasers = new ArrayList<Laser>();
     }
 
     public void create(){
@@ -45,6 +45,7 @@ public class PlayerShip extends Ship{
                 x -= 10;
             }
         }
+        setBoundingBox();
     }
 
     private void moveRight(){
@@ -55,13 +56,14 @@ public class PlayerShip extends Ship{
                 x += 10;
             }
         }
+        setBoundingBox();
     }
 
     private void fireLaser() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            Laser laser = new Laser(x, y, batch);
-            laser.create();
+            Laser laser = new Laser(batch, x, y);
             lasers.add(laser);
+            laser.create();
         }
     }
 }
