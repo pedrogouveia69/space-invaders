@@ -19,8 +19,8 @@ public class Fleet {
 
     public Fleet(SpriteBatch batch){
         this.batch = batch;
-        this.ships = new ArrayList<Ship>();
-        this.lasers = new ArrayList<EnemyLaser>();
+        this.ships = new ArrayList<>();
+        this.lasers = new ArrayList<>();
     }
 
     public void create(){
@@ -41,13 +41,15 @@ public class Fleet {
     }
 
     public void render(){
-        // foreach
         for (Ship ship: ships) {
             ship.render();
         }
+        for (EnemyLaser laser: lasers) {
+            laser.render();
+        }
     }
 
-    public void fireLaser(){
+    private void fireLaser(){
         if(ships.size() > 0){
             int rand = (int) (Math.random() * ships.size());
             Ship randShip = ships.get(rand);
@@ -55,5 +57,20 @@ public class Fleet {
             lasers.add(laser);
             laser.create();
         }
+    }
+
+    public void scheduleFireLaser(){
+        TimerTask fireLaser = new TimerTask() {
+            @Override
+            public void run() {
+                //https://stackoverflow.com/questions/29467761/opengl-context-libgdx
+                Gdx.app.postRunnable(new Runnable(){
+                    public void run(){
+                        fireLaser();
+                    }
+                });
+            }
+        };
+        new Timer().schedule(fireLaser, 0, 500);
     }
 }

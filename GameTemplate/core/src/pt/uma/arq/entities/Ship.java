@@ -10,8 +10,8 @@ public abstract class Ship {
     protected SpriteBatch batch;
     protected ShipSprite sprite;
     protected Animator animator;
-    protected int x;
-    protected int y;
+    public int x;
+    public int y;
 
     public int attackValue;
     public Rectangle boundingBox;
@@ -26,6 +26,7 @@ public abstract class Ship {
         this.batch = batch;
     }
 
+    //TODO try using Animator's getWidth()/getHeight() for this
     public void setBoundingBox() {
         boundingBox = new Rectangle(x, y, (int)(sprite.getWidth() / sprite.columns), (int)(sprite.getHeight() / sprite.rows));
     }

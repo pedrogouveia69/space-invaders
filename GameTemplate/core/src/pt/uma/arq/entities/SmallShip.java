@@ -10,7 +10,7 @@ public class SmallShip extends Ship{
     public SmallShip(int x, int y, SpriteBatch batch){
         super(x, y, batch);
         attackValue = 5;
-        sprite = new ShipSprite("GameTemplate/core/assets/enemy-small.png",2, 1);
+        sprite = new ShipSprite("enemy-small.png",2, 1);
         setBoundingBox();
         setAnimator();
     }

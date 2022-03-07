@@ -2,17 +2,21 @@ package pt.uma.arq.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pt.uma.arq.game.Animator;
+import java.util.Date;
 
-public class Laser {
+
+public class Explosion extends Object{
 
     protected Animator animator;
     public int x;
     public int y;
+    public Date createdAt;
 
-    public Laser(SpriteBatch batch, int x, int y){
+    public Explosion(SpriteBatch batch, int x, int y){
         this.x = x;
         this.y = y;
-        animator = new Animator(batch, "laser-bolts.png", 2, 2);
+        animator = new Animator(batch, "explosion.png", 5, 1);
+        createdAt = new Date();
     }
 
     public void create(){
@@ -21,6 +25,5 @@ public class Laser {
 
     public void render(){
         animator.render(x,y);
-        y+=10;
     }
 }

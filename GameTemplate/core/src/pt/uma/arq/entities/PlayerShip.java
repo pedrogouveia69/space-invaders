@@ -9,15 +9,17 @@ import java.util.ArrayList;
 public class PlayerShip extends Ship{
 
     public ArrayList<Laser> lasers;
+    public int lasersFired;
+    public int lasersHit;
 
     public PlayerShip(SpriteBatch batch){
         super(batch);
-        sprite = new ShipSprite("GameTemplate/core/assets/ship.png", 5, 2);
+        sprite = new ShipSprite("ship.png", 5, 2);
         x = 300;
         y = 20;
         setBoundingBox();
         setAnimator();
-        lasers = new ArrayList<Laser>();
+        lasers = new ArrayList<>();
     }
 
     public void create(){
@@ -64,6 +66,7 @@ public class PlayerShip extends Ship{
             Laser laser = new Laser(batch, x, y);
             lasers.add(laser);
             laser.create();
+            lasersFired++;
         }
     }
 }
