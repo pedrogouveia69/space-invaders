@@ -45,9 +45,6 @@ public class Fleet {
         for (Ship ship: ships) {
             ship.render();
         }
-        for (EnemyLaser laser: lasers) {
-            laser.render();
-        }
     }
 
     public void fireLaser(){
@@ -59,5 +56,4 @@ public class Fleet {
             laser.create();
         }
     }
-
 }

@@ -8,7 +8,7 @@ public class LargeShip extends Ship{
     public LargeShip(int x, int y, SpriteBatch batch){
         super(x, y, batch);
         attackValue = 20;
-        sprite = new ShipSprite("core/assets/enemy-big.png",2, 1);
+        sprite = new ShipSprite("GameTemplate/core/assets/enemy-big.png",2, 1);
         setBoundingBox();
         setAnimator();
     }

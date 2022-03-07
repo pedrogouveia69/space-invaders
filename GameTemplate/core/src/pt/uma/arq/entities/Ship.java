@@ -8,11 +8,12 @@ import java.awt.*;
 public abstract class Ship {
 
     protected SpriteBatch batch;
+    protected ShipSprite sprite;
     protected Animator animator;
     protected int x;
     protected int y;
-    protected int attackValue;
-    protected ShipSprite sprite;
+
+    public int attackValue;
     public Rectangle boundingBox;
 
     public Ship(SpriteBatch batch){

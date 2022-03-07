@@ -12,7 +12,7 @@ public class PlayerShip extends Ship{
 
     public PlayerShip(SpriteBatch batch){
         super(batch);
-        sprite = new ShipSprite("core/assets/ship.png", 5, 2);
+        sprite = new ShipSprite("GameTemplate/core/assets/ship.png", 5, 2);
         x = 300;
         y = 20;
         setBoundingBox();

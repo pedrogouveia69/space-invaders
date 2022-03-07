@@ -28,7 +28,7 @@ public class ShipSprite extends Sprite {
             readImage = ImageIO.read(new File(imgPath));
             setSize(readImage.getWidth(), readImage.getHeight());
         } catch (IOException e) {
-            System.out.print(e.getMessage());
+            System.out.print("setSize(): " + e.getMessage());
         }
     }
 }

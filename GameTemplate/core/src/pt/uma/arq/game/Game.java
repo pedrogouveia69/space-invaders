@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pt.uma.arq.entities.*;
 
+import java.util.Timer;
 import java.util.TimerTask;
 
 public class Game extends ApplicationAdapter {
@@ -25,7 +26,7 @@ public class Game extends ApplicationAdapter {
         for (int i = 0; i < playerShip.lasers.size(); i++) {
             for(int j = 0; j < fleet.ships.size(); j++) {
                 if(fleet.ships.get(j).boundingBox.contains(playerShip.lasers.get(i).x, playerShip.lasers.get(i).y)){
-                    setScore(fleet.ships.get(j));
+                    score += fleet.ships.get(j).attackValue;
                     fleet.ships.remove(j);
                     playerShip.lasers.remove(i);
                     break;
@@ -59,18 +60,6 @@ public class Game extends ApplicationAdapter {
         }
     }
 
-    private void setScore(Ship ship){
-        if(ship instanceof SmallShip){
-            score += 5;
-        }
-        else if(ship instanceof MediumShip){
-            score += 10;
-        }
-        else{
-            score += 20;
-        }
-    }
-
 
     @Override
     public void create() {
@@ -88,16 +77,23 @@ public class Game extends ApplicationAdapter {
         playerShip = new PlayerShip(batch);
         playerShip.create();
 
-        fleet = new Fleet(batch);
+        fleet= new Fleet(batch);
         fleet.create();
 
-        //TODO schedule TimerTask
+        //TODO https://stackoverflow.com/questions/29467761/opengl-context-libgdx
         fireLaser = new TimerTask() {
             @Override
             public void run() {
-                fleet.fireLaser();
+                Gdx.app.postRunnable(new Runnable(){
+                    public void run(){
+                        fleet.fireLaser();
+                    }
+                });
             }
         };
+
+        new Timer().schedule(fireLaser, 0, 500);
+
     }
 
     @Override
@@ -120,12 +116,18 @@ public class Game extends ApplicationAdapter {
         playerShip.render();
         fleet.render();
 
+        for (Laser laser: playerShip.lasers) {
+            laser.render();
+        }
+
+        for (EnemyLaser laser: fleet.lasers) {
+            laser.render();
+        }
+
         playerShip.handleInput();
-        fleet.fireLaser();
 
         batch.end();
     }
-
 
     @Override
     public void dispose() {
