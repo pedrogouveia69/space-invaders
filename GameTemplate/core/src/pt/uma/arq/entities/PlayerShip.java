@@ -5,7 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pt.uma.arq.game.Animator;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class PlayerShip extends Ship{
@@ -68,6 +71,20 @@ public class PlayerShip extends Ship{
             lasers.add(laser);
             laser.create();
             lasersFired++;
+            playAudio();
+        }
+    }
+
+    private void playAudio(){
+        try
+        {
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(new File("core/audio/LASRHVY1.wav")));
+            clip.start();
+        }
+        catch (Exception exc)
+        {
+            exc.printStackTrace(System.out);
         }
     }
 }
