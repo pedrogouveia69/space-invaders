@@ -1,15 +1,14 @@
 package pt.uma.arq.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import pt.uma.arq.game.ShipSprite;
+import pt.uma.arq.game.Animator;
 
 public class MediumShip extends Ship{
 
     public MediumShip(int x, int y, SpriteBatch batch){
         super(x, y, batch);
         attackValue = 10;
-        sprite = new ShipSprite("enemy-medium.png",2, 1);
+        animator = new Animator(batch, "enemy-medium.png", 2, 1);
         setBoundingBox();
-        setAnimator();
     }
 }

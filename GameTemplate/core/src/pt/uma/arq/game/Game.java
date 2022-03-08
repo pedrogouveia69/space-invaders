@@ -30,7 +30,7 @@ public class Game extends ApplicationAdapter {
 
         for (int i = 0; i < playerShip.lasers.size(); i++) {
             for(int j = 0; j < fleet.ships.size(); j++) {
-                if(fleet.ships.get(j).boundingBox.contains(playerShip.lasers.get(i).x, playerShip.lasers.get(i).y)) {
+                if(fleet.ships.get(j).boundingBox.contains(playerShip.lasers.get(i))) {
                     score += fleet.ships.get(j).attackValue;
                     createExplosion(fleet.ships.get(j).x, fleet.ships.get(j).y);
                     fleet.ships.remove(j);
@@ -42,7 +42,7 @@ public class Game extends ApplicationAdapter {
         }
 
         for(int i = 0; i < fleet.lasers.size(); i++) {
-            if(playerShip.boundingBox.contains(fleet.lasers.get(i).x, fleet.lasers.get(i).y)){
+            if(playerShip.boundingBox.contains(fleet.lasers.get(i))){
                 health -= fleet.lasers.get(i).attackValue;
                 createExplosion(playerShip.x, playerShip.y);
                 fleet.lasers.remove(i);
@@ -96,6 +96,7 @@ public class Game extends ApplicationAdapter {
     private void resetGame(){
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
             setDefaults();
+            fleet.scheduleFireLaser();
         }
     }
 
@@ -109,7 +110,6 @@ public class Game extends ApplicationAdapter {
 
         fleet = new Fleet(batch);
         fleet.create();
-        fleet.scheduleFireLaser();
 
         explosions = new ArrayList<>();
     }
@@ -124,6 +124,7 @@ public class Game extends ApplicationAdapter {
         background = new Background(batch);
 
         setDefaults();
+        fleet.scheduleFireLaser();
     }
 
     @Override
@@ -141,6 +142,7 @@ public class Game extends ApplicationAdapter {
             //TODO ??? bruh
             //accuracy = playerShip.lasersHit / playerShip.lasersFired;
             mainFont.draw(batch, "YOU WON! ", 225, 600);
+            mainFont.draw(batch, "FINAL SCORE: " + (score + health), 200, 550);
             resetGame();
         }
         else if (health <= 0)

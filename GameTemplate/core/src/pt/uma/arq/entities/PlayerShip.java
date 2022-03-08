@@ -3,7 +3,9 @@ package pt.uma.arq.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import pt.uma.arq.game.ShipSprite;
+import pt.uma.arq.game.Animator;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 public class PlayerShip extends Ship{
@@ -13,12 +15,11 @@ public class PlayerShip extends Ship{
     public int lasersHit;
 
     public PlayerShip(SpriteBatch batch){
-        super(batch);
-        sprite = new ShipSprite("ship.png", 5, 2);
+        super(batch);;
         x = 300;
         y = 20;
+        animator = new Animator(batch, "ship.png",5,2);
         setBoundingBox();
-        setAnimator();
         lasers = new ArrayList<>();
     }
 

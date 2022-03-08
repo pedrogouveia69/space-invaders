@@ -2,16 +2,16 @@ package pt.uma.arq.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pt.uma.arq.game.Animator;
-import pt.uma.arq.game.ShipSprite;
+
 import java.awt.*;
 
 public abstract class Ship {
 
     protected SpriteBatch batch;
-    protected ShipSprite sprite;
     protected Animator animator;
     public int x;
     public int y;
+    //public Point position;
 
     public int attackValue;
     public Rectangle boundingBox;
@@ -24,15 +24,12 @@ public abstract class Ship {
         this.x = x;
         this.y = y;
         this.batch = batch;
+        //position = new Point(x, y);
     }
 
-    //TODO try using Animator's getWidth()/getHeight() for this
     public void setBoundingBox() {
-        boundingBox = new Rectangle(x, y, (int)(sprite.getWidth() / sprite.columns), (int)(sprite.getHeight() / sprite.rows));
-    }
-
-    protected void setAnimator(){
-        animator = new Animator(batch, sprite.imgPath, sprite.columns, sprite.rows);
+        animator.create();
+        boundingBox = new Rectangle(x, y, animator.getWidth(), animator.getHeight());
     }
 
     public void create(){
