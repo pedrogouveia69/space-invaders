@@ -2,8 +2,6 @@ package pt.uma.arq.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pt.uma.arq.game.Animator;
-
-import java.awt.*;
 import java.util.Date;
 
 

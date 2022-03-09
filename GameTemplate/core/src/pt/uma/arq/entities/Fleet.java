@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import pt.uma.arq.game.Animator;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import pt.uma.arq.game.Audio;
 
 import java.util.Random;
 import java.util.Timer;
@@ -56,6 +57,7 @@ public class Fleet {
             EnemyLaser laser = new EnemyLaser(batch, randShip.x, randShip.y, randShip.attackValue);
             lasers.add(laser);
             laser.create();
+            //Audio.playEnemyLaser();
         }
     }
 
