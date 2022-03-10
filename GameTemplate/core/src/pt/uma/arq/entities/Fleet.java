@@ -57,7 +57,7 @@ public class Fleet {
             EnemyLaser laser = new EnemyLaser(batch, randShip.x, randShip.y, randShip.attackValue);
             lasers.add(laser);
             laser.create();
-            //Audio.playEnemyLaser();
+            Audio.playEnemyLaser();
         }
     }
 

@@ -1,7 +1,6 @@
 package pt.uma.arq.game;
 
 import com.badlogic.gdx.Gdx;
-
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
@@ -9,6 +8,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Audio {
+
+    private static String rootPath = "core/audio/";
+    private static String laserAudioPath = rootPath + "LASRLIT1.wav";
+    private static String enemyLaserAudioPath = rootPath + "Probe-Gun.wav";
 
     private static void play(String pathname){
         try
@@ -25,11 +28,11 @@ public class Audio {
     }
 
     public static void playLaser(){
-        play("core/audio/LASRLIT1.wav");
+        play(laserAudioPath);
     }
 
     public static void playEnemyLaser(){
-        play("core/audio/Probe-Gun.wav");
+        play(enemyLaserAudioPath);
     }
 
     public static void playBackgroundMusic(){

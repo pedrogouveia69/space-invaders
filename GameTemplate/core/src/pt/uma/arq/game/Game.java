@@ -132,7 +132,7 @@ public class Game extends ApplicationAdapter {
 
         setDefaults();
         fleet.scheduleFireLaser();
-        Audio.playBackgroundMusic();
+        //Audio.playBackgroundMusic();
     }
 
     @Override
