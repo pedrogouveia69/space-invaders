@@ -68,7 +68,7 @@ public class PlayerShip extends Ship{
             lasers.add(laser);
             laser.create();
             lasersFired++;
-            //Audio.playLaser();
+            Audio.playLaser();
         }
     }
 
