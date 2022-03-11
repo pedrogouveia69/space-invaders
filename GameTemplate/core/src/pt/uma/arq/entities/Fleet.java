@@ -57,7 +57,28 @@ public class Fleet {
             EnemyLaser laser = new EnemyLaser(batch, randShip.x, randShip.y, randShip.attackValue);
             lasers.add(laser);
             laser.create();
-            Audio.playEnemyLaser();
+            //Audio.playEnemyLaser();
+        }
+    }
+
+    public void moveDown(){
+        for (Ship ship: ships) {
+            ship.y -= 50;
+            ship.setBoundingBox();
+        }
+    }
+
+    public void moveLeft(){
+        for (Ship ship: ships) {
+            ship.x -= 10;
+            ship.setBoundingBox();
+        }
+    }
+
+    public void moveRight(){
+        for (Ship ship: ships) {
+            ship.x += 10;
+            ship.setBoundingBox();
         }
     }
 
@@ -74,5 +95,20 @@ public class Fleet {
             }
         };
         new Timer().schedule(fireLaser, 0, 500);
+    }
+
+    public void scheduleMoveDown(){
+        TimerTask moveDown = new TimerTask() {
+            @Override
+            public void run() {
+                //https://stackoverflow.com/questions/29467761/opengl-context-libgdx
+                Gdx.app.postRunnable(new Runnable(){
+                    public void run(){
+                        moveDown();
+                    }
+                });
+            }
+        };
+        new Timer().schedule(moveDown, 10000, 10000);
     }
 }

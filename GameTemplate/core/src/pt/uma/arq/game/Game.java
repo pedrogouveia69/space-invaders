@@ -42,6 +42,7 @@ public class Game extends ApplicationAdapter {
                     createExplosion(fleet.ships.get(j).x, fleet.ships.get(j).y);
                     fleet.ships.remove(j);
                     playerShip.lasers.remove(i);
+                    Audio.playExplosion();
                     playerShip.lasersHit++;
                     break;
                 }
@@ -53,6 +54,7 @@ public class Game extends ApplicationAdapter {
                 health -= fleet.lasers.get(i).attackValue;
                 createExplosion(playerShip.x, playerShip.y);
                 fleet.lasers.remove(i);
+                Audio.playExplosion();
                 break;
             }
         }
@@ -132,7 +134,8 @@ public class Game extends ApplicationAdapter {
 
         setDefaults();
         fleet.scheduleFireLaser();
-        //Audio.playBackgroundMusic();
+        fleet.scheduleMoveDown();
+        Audio.playBackgroundMusic();
     }
 
     @Override
@@ -169,6 +172,7 @@ public class Game extends ApplicationAdapter {
                 explosion.render();
             }
         }
+
 
         playerShip.render();
         playerShip.handleInput();
