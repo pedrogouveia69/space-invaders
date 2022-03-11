@@ -6,6 +6,7 @@ import pt.uma.arq.game.Animator;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pt.uma.arq.game.Audio;
 
+import java.awt.*;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,6 +18,7 @@ public class Fleet {
     private SpriteBatch batch;
     public ArrayList<Ship> ships;
     public ArrayList<EnemyLaser> lasers;
+    private int timesMovedDown;
 
     public Fleet(SpriteBatch batch){
         this.batch = batch;
@@ -62,9 +64,13 @@ public class Fleet {
     }
 
     public void moveDown(){
-        for (Ship ship: ships) {
-            ship.y -= 50;
-            ship.setBoundingBox();
+        if(timesMovedDown < 9){
+            for (Ship ship: ships) {
+                ship.y -= 50;
+                ship.setBoundingBox();
+
+            }
+            timesMovedDown++;
         }
     }
 
@@ -109,6 +115,6 @@ public class Fleet {
                 });
             }
         };
-        new Timer().schedule(moveDown, 10000, 10000);
+        new Timer().schedule(moveDown, 5000, 2000);
     }
 }

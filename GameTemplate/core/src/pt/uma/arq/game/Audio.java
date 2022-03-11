@@ -9,10 +9,11 @@ import java.util.TimerTask;
 
 public class Audio {
 
-    private static String rootPath = "core/audio/";
-    private static String laserAudioPath = "LASRLIT1.wav";
+    private static String rootPath = "GameTemplate/core/audio/";
+    private static String laserAudioPath = "LASRHVY1.wav";
     private static String enemyLaserAudioPath = "Probe-Gun.wav";
     private static String explosionAudioPath = "Explosion.wav";
+    private static String backgroundAudioPath = "Interstellar-Odyssey.wav";
 
     private static void play(String pathname){
         try
@@ -24,6 +25,20 @@ public class Audio {
         catch (Exception e)
         {
             System.out.println("Audio.play() - " + e.getMessage());
+        }
+    }
+
+    private static long getBackgroundMusicLength(){
+        try
+        {
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(new File(rootPath + backgroundAudioPath)));
+            return clip.getMicrosecondLength();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Audio.getBackgroundMusicLength() - " + e.getMessage());
+            return 0;
         }
     }
 
@@ -47,12 +62,12 @@ public class Audio {
                 //https://stackoverflow.com/questions/29467761/opengl-context-libgdx
                 Gdx.app.postRunnable(new Runnable(){
                     public void run(){
-                        play("Interstellar-Odyssey.wav");
+                        play(backgroundAudioPath);
                     }
                 });
             }
         };
-        new Timer().schedule(loopPlay, 0, 104000);
+        new Timer().schedule(loopPlay,0, getBackgroundMusicLength());
     }
 
 }
