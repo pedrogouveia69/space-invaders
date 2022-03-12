@@ -22,7 +22,6 @@ public class Game extends ApplicationAdapter {
 
     private int health;
     private int score;
-    private float accuracy;
 
     private ArrayList<Explosion> explosions;
 
@@ -96,6 +95,18 @@ public class Game extends ApplicationAdapter {
         mainFont.draw(batch, "SCORE: " + score, 10, 780);
     }
 
+    private void drawFinalScore(){
+        mainFont.draw(batch, "YOU WON! ", 225, 600);
+        try{
+            float accuracy = (float)playerShip.lasersHit / playerShip.lasersFired + 1;
+            int finalScore = (int)((score + health) * accuracy);
+            mainFont.draw(batch,"FINAL SCORE: " + finalScore, 180, 550);
+        }
+        catch (ArithmeticException e){
+            mainFont.draw(batch, e.getMessage(), 175, 550);
+        }
+    }
+
     private void resetGame(){
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
             setDefaults();
@@ -105,7 +116,6 @@ public class Game extends ApplicationAdapter {
     private void setDefaults(){
         health = startingHealth;
         score = 0;
-        accuracy = 0;
 
         playerShip = new PlayerShip(batch);
         fleet = new Fleet(batch);
@@ -136,10 +146,7 @@ public class Game extends ApplicationAdapter {
         background.render();
 
         if(fleet.ships.size() == 0){
-            //TODO ??? bruh
-            //accuracy = playerShip.lasersHit / playerShip.lasersFired;
-            mainFont.draw(batch, "YOU WON! ", 225, 600);
-            mainFont.draw(batch, "FINAL SCORE: " + (score + health), 195, 550);
+            drawFinalScore();
             resetGame();
         }
         else if (health <= 0)

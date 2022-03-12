@@ -11,7 +11,6 @@ public abstract class Ship {
     protected Animator animator;
     public int x;
     public int y;
-    //public Point position;
 
     public int attackValue;
     public Rectangle boundingBox;
@@ -24,11 +23,10 @@ public abstract class Ship {
         this.x = x;
         this.y = y;
         this.batch = batch;
-        //position = new Point(x, y);
     }
 
     public void setBoundingBox() {
-        animator.create();
+        create();
         boundingBox = new Rectangle(x, y, animator.getWidth(), animator.getHeight());
     }
 
