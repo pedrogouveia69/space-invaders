@@ -21,10 +21,7 @@ public class PlayerShip extends Ship{
         animator = new Animator(batch, "ship.png",5,2);
         setBoundingBox();
         lasers = new ArrayList<>();
-    }
-
-    public void create(){
-        animator.create();
+        create();
     }
 
     public void render(){
@@ -42,9 +39,7 @@ public class PlayerShip extends Ship{
 
     private void moveLeft() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            if (x < 0) {
-                x = 600;
-            } else {
+            if (x > 0) {
                 x -= 10;
             }
         }
@@ -53,9 +48,7 @@ public class PlayerShip extends Ship{
 
     private void moveRight(){
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            if (x > 600) {
-                x = 0;
-            } else {
+            if (x < 600 - animator.getWidth()) {
                 x += 10;
             }
         }
@@ -66,11 +59,8 @@ public class PlayerShip extends Ship{
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             Laser laser = new Laser(batch, x, y);
             lasers.add(laser);
-            laser.create();
             lasersFired++;
             Audio.playLaser();
         }
     }
-
-
 }

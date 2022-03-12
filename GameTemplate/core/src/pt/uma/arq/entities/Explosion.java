@@ -17,10 +17,11 @@ public class Explosion {
         this.y = y;
         animator = new Animator(batch, "explosion.png", 5, 1);
         createdAt = new Date();
+        create();
 
     }
 
-    public void create(){
+    private void create(){
         animator.create();
     }
 

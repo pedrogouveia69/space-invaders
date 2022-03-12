@@ -78,7 +78,6 @@ public class Game extends ApplicationAdapter {
 
     private void createExplosion(int x, int y){
         Explosion explosion = new Explosion(batch, x, y);
-        explosion.create();
         explosions.add(explosion);
     }
 
@@ -105,7 +104,6 @@ public class Game extends ApplicationAdapter {
     private void resetGame(){
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
             setDefaults();
-            fleet.scheduleFireLaser();
         }
     }
 
@@ -115,11 +113,7 @@ public class Game extends ApplicationAdapter {
         accuracy = 0;
 
         playerShip = new PlayerShip(batch);
-        playerShip.create();
-
         fleet = new Fleet(batch);
-        fleet.create();
-
         explosions = new ArrayList<>();
     }
 
@@ -133,8 +127,6 @@ public class Game extends ApplicationAdapter {
         background = new Background(batch);
 
         setDefaults();
-        fleet.scheduleFireLaser();
-        fleet.scheduleMoveDown();
         Audio.playBackgroundMusic();
     }
 
@@ -172,7 +164,6 @@ public class Game extends ApplicationAdapter {
                 explosion.render();
             }
         }
-
 
         playerShip.render();
         playerShip.handleInput();

@@ -9,8 +9,8 @@ import java.util.TimerTask;
 
 public class Audio {
 
-    private static String rootPath = "GameTemplate/core/audio/";
-    private static String laserAudioPath = "LASRHVY1.wav";
+    private static String rootPath = "core/audio/";
+    private static String laserAudioPath = "LASRLIT1.wav";
     private static String enemyLaserAudioPath = "Probe-Gun.wav";
     private static String explosionAudioPath = "Explosion.wav";
     private static String backgroundAudioPath = "Interstellar-Odyssey.wav";

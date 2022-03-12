@@ -13,9 +13,10 @@ public class Laser extends Point{
         this.x = x;
         this.y = y;
         animator = new Animator(batch, "laser-bolts.png", 2, 2);
+        create();
     }
 
-    public void create(){
+    private void create(){
         animator.create();
     }
 

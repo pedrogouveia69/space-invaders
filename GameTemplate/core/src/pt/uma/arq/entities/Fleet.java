@@ -1,12 +1,8 @@
 package pt.uma.arq.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import pt.uma.arq.game.Animator;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import pt.uma.arq.game.Audio;
 
-import java.awt.*;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,20 +14,24 @@ public class Fleet {
     private SpriteBatch batch;
     public ArrayList<Ship> ships;
     public ArrayList<EnemyLaser> lasers;
-    private int timesMovedDown;
+    private int moveDownPixelCount;
+    private xAxisPosition position;
 
     public Fleet(SpriteBatch batch){
         this.batch = batch;
         this.ships = new ArrayList<>();
         this.lasers = new ArrayList<>();
+        position = xAxisPosition.CENTER;
+        create();
+        startTimers();
     }
 
-    public void create(){
+    private void create(){
         for (int i = 0; i < 9; i++) {
             // i*n is for spacing the ships
-            Ship small = new SmallShip(90 + (i * 50), 550, batch);
-            Ship medium = new MediumShip(40 + (i * 60), 600, batch);
-            Ship large = new LargeShip(40 + (i * 60), 650, batch);
+            Ship small = new SmallShip(90 + (i * 50), 600, batch);
+            Ship medium = new MediumShip(40 + (i * 60), 650, batch);
+            Ship large = new LargeShip(40 + (i * 60), 700, batch);
 
             ships.add(small);
             ships.add(medium);
@@ -58,37 +58,68 @@ public class Fleet {
             Ship randShip = ships.get(rand);
             EnemyLaser laser = new EnemyLaser(batch, randShip.x, randShip.y, randShip.attackValue);
             lasers.add(laser);
-            laser.create();
             //Audio.playEnemyLaser();
         }
     }
 
-    public void moveDown(){
-        if(timesMovedDown < 9){
+    private void moveDown(){
+        if(moveDownPixelCount < 500){
             for (Ship ship: ships) {
                 ship.y -= 50;
                 ship.setBoundingBox();
 
             }
-            timesMovedDown++;
+            moveDownPixelCount += 50;
         }
     }
 
-    public void moveLeft(){
+    private enum xAxisPosition {
+        LEFT,
+        CENTER,
+        RIGHT
+    }
+
+    private void moveLeft(){
         for (Ship ship: ships) {
-            ship.x -= 10;
+            ship.x -= 25;
             ship.setBoundingBox();
         }
+        position = xAxisPosition.LEFT;
     }
 
-    public void moveRight(){
+    private void moveRight(){
         for (Ship ship: ships) {
-            ship.x += 10;
+            ship.x += 25;
             ship.setBoundingBox();
+        }
+        position = xAxisPosition.RIGHT;
+    }
+
+    private void moveCenter(){
+        if(position == xAxisPosition.LEFT){
+            moveRight();
+        }
+        else if(position == xAxisPosition.RIGHT){
+            moveLeft();
+        }
+        position = xAxisPosition.CENTER;
+    }
+
+    private void moveXAxis(){
+        if(position == xAxisPosition.CENTER){
+            if(new Random().nextBoolean()){
+                moveLeft();
+            }
+            else{
+                moveRight();
+            }
+        }
+        else{
+            moveCenter();
         }
     }
 
-    public void scheduleFireLaser(){
+    private void scheduleFireLaser(){
         TimerTask fireLaser = new TimerTask() {
             @Override
             public void run() {
@@ -100,10 +131,10 @@ public class Fleet {
                 });
             }
         };
-        new Timer().schedule(fireLaser, 0, 500);
+        new Timer().schedule(fireLaser, 500, 500);
     }
 
-    public void scheduleMoveDown(){
+    private void scheduleMoveDown(){
         TimerTask moveDown = new TimerTask() {
             @Override
             public void run() {
@@ -115,6 +146,27 @@ public class Fleet {
                 });
             }
         };
-        new Timer().schedule(moveDown, 5000, 2000);
+        new Timer().schedule(moveDown, 3500, 3500);
+    }
+
+    private void scheduleMoveXAxis(){
+        TimerTask moveXAxis = new TimerTask() {
+            @Override
+            public void run() {
+                //https://stackoverflow.com/questions/29467761/opengl-context-libgdx
+                Gdx.app.postRunnable(new Runnable(){
+                    public void run(){
+                        moveXAxis();
+                    }
+                });
+            }
+        };
+        new Timer().schedule(moveXAxis, 2500, 2500);
+    }
+
+    private void startTimers(){
+        scheduleFireLaser();
+        scheduleMoveXAxis();
+        scheduleMoveDown();
     }
 }
