@@ -5,16 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.sun.media.sound.JavaSoundAudioClip;
 import pt.uma.arq.entities.*;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import java.applet.AudioClip;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,9 +15,11 @@ public class Game extends ApplicationAdapter {
     private Background background;
     private BitmapFont mainFont;
     private BitmapFont dangerFont;
-
     private PlayerShip playerShip;
     private Fleet fleet;
+
+    private static int startingHealth = 100;
+
     private int health;
     private int score;
     private float accuracy;
@@ -92,8 +85,10 @@ public class Game extends ApplicationAdapter {
     }
 
     private void drawHealthAndScore(){
-        if (health < 35){
-            dangerFont.draw(batch, "HEALTH: " + health, 420, 780);
+        if (health < (startingHealth / 3)){
+            if (new Date().getSeconds() %2 != 0){
+                dangerFont.draw(batch, "HEALTH: " + health, 420, 780);
+            }
         }
         else {
             mainFont.draw(batch, "HEALTH: " + health, 420, 780);
@@ -108,7 +103,7 @@ public class Game extends ApplicationAdapter {
     }
 
     private void setDefaults(){
-        health = 100;
+        health = startingHealth;
         score = 0;
         accuracy = 0;
 
@@ -137,7 +132,6 @@ public class Game extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         */
         removeOutOfBoundsLasers();
-
         batch.begin();
         background.render();
 
@@ -145,7 +139,7 @@ public class Game extends ApplicationAdapter {
             //TODO ??? bruh
             //accuracy = playerShip.lasersHit / playerShip.lasersFired;
             mainFont.draw(batch, "YOU WON! ", 225, 600);
-            mainFont.draw(batch, "FINAL SCORE: " + (score + health), 200, 550);
+            mainFont.draw(batch, "FINAL SCORE: " + (score + health), 195, 550);
             resetGame();
         }
         else if (health <= 0)
