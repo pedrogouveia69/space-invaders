@@ -12,7 +12,7 @@ public class Laser extends Point{
     public Laser(SpriteBatch batch, int x, int y){
         this.x = x;
         this.y = y;
-        animator = new Animator(batch, "laser-bolts.png", 2, 2);
+        animator = new Animator(batch, "sprites/laser-bolts.png", 2, 2);
         create();
     }
 

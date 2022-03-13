@@ -9,7 +9,7 @@ public class SmallShip extends Ship{
     public SmallShip(int x, int y, SpriteBatch batch){
         super(x, y, batch);
         attackValue = 5;
-        animator = new Animator(batch, "enemy-small.png", 2, 1);
+        animator = new Animator(batch, "sprites/enemy-small.png", 2, 1);
         setBoundingBox();
     }
 }

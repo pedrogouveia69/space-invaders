@@ -18,7 +18,7 @@ public class PlayerShip extends Ship{
         super(batch);;
         x = 300;
         y = 20;
-        animator = new Animator(batch, "ship.png",5,2);
+        animator = new Animator(batch, "sprites/ship.png",5,2);
         setBoundingBox();
         lasers = new ArrayList<>();
         create();

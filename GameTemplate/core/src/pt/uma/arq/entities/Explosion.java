@@ -15,7 +15,7 @@ public class Explosion {
     public Explosion(SpriteBatch batch, int x, int y){
        this.x = x;
         this.y = y;
-        animator = new Animator(batch, "explosion.png", 5, 1);
+        animator = new Animator(batch, "sprites/explosion.png", 5, 1);
         createdAt = new Date();
         create();
 

@@ -11,7 +11,7 @@ public class Background {
 
     public Background(SpriteBatch batch) {
         this.spriteBatch = batch;
-        sprite = new Sprite(new Texture("space.png"));
+        sprite = new Sprite(new Texture("background.png"));
         sprite.setPosition(0, 0);
     }
 

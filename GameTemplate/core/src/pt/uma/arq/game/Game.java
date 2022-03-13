@@ -96,15 +96,9 @@ public class Game extends ApplicationAdapter {
     }
 
     private void drawFinalScore(){
-        mainFont.draw(batch, "YOU WON! ", 225, 600);
-        try{
-            float accuracy = (float)playerShip.lasersHit / playerShip.lasersFired + 1;
-            int finalScore = (int)((score + health) * accuracy);
-            mainFont.draw(batch,"FINAL SCORE: " + finalScore, 180, 550);
-        }
-        catch (ArithmeticException e){
-            mainFont.draw(batch, e.getMessage(), 175, 550);
-        }
+        float accuracy = (float)playerShip.lasersHit / playerShip.lasersFired;
+        int finalScore = (int)((score + health) * (1 + accuracy));
+        mainFont.draw(batch,"FINAL SCORE: " + finalScore, 180, 550);
     }
 
     private void resetGame(){
@@ -146,6 +140,7 @@ public class Game extends ApplicationAdapter {
         background.render();
 
         if(fleet.ships.size() == 0){
+            mainFont.draw(batch, "YOU WON! ", 225, 600);
             drawFinalScore();
             resetGame();
         }

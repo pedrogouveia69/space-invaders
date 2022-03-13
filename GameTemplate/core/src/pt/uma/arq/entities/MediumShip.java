@@ -8,7 +8,7 @@ public class MediumShip extends Ship{
     public MediumShip(int x, int y, SpriteBatch batch){
         super(x, y, batch);
         attackValue = 10;
-        animator = new Animator(batch, "enemy-medium.png", 2, 1);
+        animator = new Animator(batch, "sprites/enemy-medium.png", 2, 1);
         setBoundingBox();
     }
 }

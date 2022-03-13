@@ -9,11 +9,11 @@ import java.util.TimerTask;
 
 public class Audio {
 
-    private static String rootPath = "core/audio/";
-    private static String laserAudioPath = "LASRLIT1.wav";
-    private static String enemyLaserAudioPath = "Probe-Gun.wav";
-    private static String explosionAudioPath = "Explosion.wav";
-    private static String backgroundAudioPath = "Interstellar-Odyssey.wav";
+    private static String rootPath = "core/assets/audio/";
+    private static String laserFileName = "laser.wav";
+    private static String enemyLaserFileName = "enemy-laser.wav";
+    private static String explosionFileName = "explosion.wav";
+    private static String backgroundMusicFileName = "interstellar-odyssey.wav";
 
     private static void play(String pathname){
         try
@@ -32,7 +32,7 @@ public class Audio {
         try
         {
             Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(new File(rootPath + backgroundAudioPath)));
+            clip.open(AudioSystem.getAudioInputStream(new File(rootPath + backgroundMusicFileName)));
             return clip.getMicrosecondLength();
         }
         catch (Exception e)
@@ -43,15 +43,15 @@ public class Audio {
     }
 
     public static void playLaser(){
-        play(laserAudioPath);
+        play(laserFileName);
     }
 
     public static void playEnemyLaser(){
-        play(enemyLaserAudioPath);
+        play(enemyLaserFileName);
     }
 
     public static void playExplosion() {
-        play(explosionAudioPath);
+        play(explosionFileName);
     }
 
     public static void playBackgroundMusic(){
@@ -62,12 +62,18 @@ public class Audio {
                 //https://stackoverflow.com/questions/29467761/opengl-context-libgdx
                 Gdx.app.postRunnable(new Runnable(){
                     public void run(){
-                        play(backgroundAudioPath);
+                        play(backgroundMusicFileName);
                     }
                 });
             }
         };
-        new Timer().schedule(loopPlay,0, getBackgroundMusicLength());
+        try{
+            new Timer().schedule(loopPlay,0, getBackgroundMusicLength());
+        }
+        catch (IllegalArgumentException e){
+            System.out.println("Audio.playBackgroundMusic() - " + e.getMessage());
+        }
+
     }
 
 }
